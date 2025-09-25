@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clube do Livro Infantil — Vitrine</title>
+  <meta name="description" content="Vitrine de livros infantis com sinopse e link para compra. Curadoria carinhosa para famílias e educadores.">
+  <meta name="theme-color" content="#f7e7c4">
+  <meta property="og:title" content="Clube do Livro Infantil — Vitrine">
+  <meta property="og:description" content="Escolha uma história, leia a sinopse e clique para adquirir.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="logo.png">
+  <style>
+    :root{
+      --bg:#fffaf3; --paper:#ffffff; --ink:#1f2937; --muted:#6b7280;
+      --brand:#f59e0b; --brand-strong:#d97706; --radius:18px;
+      --shadow:0 10px 25px rgba(31,41,55,.08); --shadow-sm:0 2px 10px rgba(31,41,55,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1080px;margin:auto;padding:24px}
+    header.hero{display:grid;gap:14px;align-items:center;grid-template-columns:1fr}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:var(--paper);border-radius:999px;padding:6px 12px;box-shadow:var(--shadow-sm);font-size:12px;color:var(--brand-strong)}
+    .title{font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0}
+    .subtitle{margin:0;color:var(--muted);font-size:clamp(14px,2vw,18px)}
+    .filters{display:grid;gap:10px;grid-template-columns:1fr; margin-top:14px}
+    .controls{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+    .control{background:var(--paper);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow-sm);display:flex;align-items:center}
+    .control input,.control select{width:100%;border:0;background:transparent;outline:none;font-size:14px;color:var(--ink)}
+    .grid{display:grid;gap:18px;margin-top:20px;grid-template-columns:repeat(1, minmax(0,1fr))}
+    .card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+    .cover{aspect-ratio:3/4;object-fit:cover;width:100%;background:#f3f4f6}
+    .logo-img{width:100%;aspect-ratio:1/1;object-fit:contain;background:transparent;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .body{padding:14px 16px;display:grid;gap:8px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{font-size:12px;background:#f3f4f6;border-radius:999px;padding:6px 10px;color:#374151}
+    .title-sm{font-size:18px;margin:2px 0 0 0}
+    .syn{color:var(--muted);font-size:14px}
+    .cta{display:flex;gap:10px;margin-top:8px}
+    .btn{flex:1;display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;border-radius:12px;padding:12px 14px;font-weight:600;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease}
+    .btn.primary{background:var(--brand);color:#111827;box-shadow:var(--shadow-sm)}
+    .btn.primary:hover{background:var(--brand-strong)}
+    .btn:active{transform:translateY(1px)}
+    footer{margin:36px 0 10px;color:var(--muted);text-align:center;font-size:14px}
+    .empty{display:none;text-align:center;color:var(--muted);padding:36px}
+    .admin-btn{position:fixed;right:16px;bottom:16px;padding:10px 12px;border-radius:12px;border:0;box-shadow:0 6px 20px rgba(0,0,0,.12);background:#fff;font-weight:600;cursor:pointer;display:none}
+    .admin-panel{position:fixed;inset:auto 16px 72px 16px;max-width:700px;margin-left:auto;background:#fff;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.18);padding:18px 16px;display:none}
+    .admin-panel h3{margin:6px 0 10px 0}
+    .admin-panel label{font-size:14px;color:#374151;display:block;margin:8px 0 6px}
+    .admin-row{display:grid;gap:8px;grid-template-columns:1fr auto}
+    .admin-panel input{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px}
+    .admin-panel .small{font-size:12px;color:#6b7280;margin-top:8px}
+    .admin-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
+    .admin-actions button{border:0;border-radius:10px;padding:10px 12px;font-weight:600;cursor:pointer}
+    .admin-save{background:#f59e0b}
+    .admin-clear{background:#f3f4f6}
+    @media (min-width:720px){
+      header.hero{grid-template-columns:1.1fr .9fr}
+      .filters{grid-template-columns:1.2fr .8fr}
+      .grid{grid-template-columns:repeat(3, minmax(0,1fr))}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <span class="badge">✨ Curadoria carinhosa • Leitura em família</span>
+        <h1 class="title">Clube do Livro Infantil</h1>
+        <p class="subtitle">Escolha uma história, leia a sinopse e clique para adquirir. Cada livro é uma sementinha plantada no coração da criança.</p>
+      </div>
+      <div>
+        <!-- LOGO no lugar da imagem das montanhas -->
+        <img src="logo.png" alt="Clube do Livro Infantil — logo" class="logo-img">
+      </div>
+    </header>
+
+    <section class="filters">
+      <div class="control" title="Buscar por título, autor ou palavras da sinopse">
+        <input id="q" type="search" placeholder="Buscar por título, autor ou palavra-chave…" aria-label="Buscar livros" />
+      </div>
+      <div class="controls">
+        <div class="control"><select id="tema" aria-label="Filtrar por tema"><option value="">Todos os temas</option></select></div>
+        <button class="btn primary" id="limpar" type="button" title="Limpar filtros">Limpar filtros</button>
+      </div>
+    </section>
+
+    <section class="grid" id="grid" aria-live="polite"></section>
+    <div id="empty" class="empty">Nenhum livro encontrado com esses filtros. Tente remover algum filtro ou buscar por outra palavra.</div>
+
+    <footer>
+      <!-- Removido o coração amarelo -->
+      <p>Dica: leia em voz alta, com pausas e perguntas. A leitura é um encontro, não uma corrida.</p>
+      <p>© <span id="year"></span> Clube do Livro Infantil</p>
+    </footer>
+  </div>
+
+  <!-- Botão + painel Admin (aparecem só com #admin ou ?admin=1) -->
+  <button id="adminBtn" class="admin-btn">⚙️ Admin</button>
+  <div id="adminPanel" class="admin-panel">
+    <h3>Configurar planilha do catálogo (Google Sheets)</h3>
+    <label for="sheetUrl">Cole aqui o link PUBLICADO da sua planilha (CSV)</label>
+    <div class="admin-row">
+      <input id="sheetUrl" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" />
+      <button class="admin-save" id="saveLoad">Salvar & Carregar</button>
+    </div>
+    <div class="admin-actions">
+      <button class="admin-clear" id="clearSheet">Desconectar planilha</button>
+      <label><input id="autoStart" type="checkbox"/> Carregar automaticamente no início</label>
+    </div>
+    <div class="small">
+      <strong>Como fazer:</strong> 1) Crie uma planilha com as colunas: <em>id, title, author, theme, synopsis, cover, affiliate, publish</em>.
+      2) No Google Sheets: Arquivo → Compartilhar → <em>Publicar na Web</em> → selecionar a aba → formato CSV → Copiar link.
+      3) Cole o link acima e clique em "Salvar & Carregar". Use <em>publish</em> = <code>1</code> para publicar a linha.
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const UTM_PARAMS = 'utm_source=instagram&utm_medium=linkinbio&utm_campaign=clube-do-livro';
+    const STORAGE_KEY = 'clube_livro_sheet_url';
+    // Sua planilha (já configurada):
+    const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSlxSrLpml1izk1Xmy9QKJZSRezhDu7Wrqh9AuRnL09XP6eZQAOX_937nw-XYzgbaY-7xbf1uwL9jcK/pub?gid=1276009145&single=true&output=csv';
+
+    // Catálogo de fallback (mostra algo mesmo se a planilha falhar)
+    const BOOKS_FALLBACK = [
+      { id:'as-aventuras-do-tempo', title:'As Aventuras do Tempo', author:'Míriam Leitão', theme:'Emoções',
+        cover:'logo.png', /* usa a logo como imagem de fallback */
+        synopsis:'Mel é uma menina fascinada por histórias. Um dia, ela disse à vovó Beth: “Me conta uma história de quando você era criança!”. A vovó então leva Mel em uma aventura através do tempo. Neste livro cheio de lembranças e afeto, Míriam Leitão trabalha a noção de tempo e transmite uma mensagem de respeito, amizade e memória.',
+        affiliate:'https://mercadolivre.com/sec/2YbpY2H' }
+    ];
+
+    // ===== ELEMENTOS =====
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const q = document.getElementById('q');
+    const tema = document.getElementById('tema');
+    const limpar = document.getElementById('limpar');
+    const year = document.getElementById('year');
+
+    // ===== HELPERS =====
+    function buildAffiliateUrl(link, id){
+      try{ const sep = link.includes('?') ? '&' : '?'; return link + sep + UTM_PARAMS + '&book_id=' + encodeURIComponent(id||''); }
+      catch(e){ return link; }
+    }
+    function cardTpl(b){
+      const href = buildAffiliateUrl(b.affiliate, b.id || b.title);
+      const badge = b.theme ? '<span class="tag">'+b.theme+'</span>' : '';
+      return (
+        '<article class="card" data-theme="'+(b.theme||'')+'">'+
+          '<img class="cover" loading="lazy" alt="Capa do livro '+(b.title||'')+'" src="'+(b.cover||'')+'">'+
+          '<div class="body">'+
+            '<div class="tags">'+badge+'</div>'+
+            '<h3 class="title-sm">'+(b.title||'')+'</h3>'+
+            '<div class="syn">'+(b.synopsis||'')+'</div>'+
+            '<div class="syn" style="font-size:12px">Autor(a): '+(b.author||'')+'</div>'+
+            '<div class="cta"><a class="btn primary" href="'+href+'" target="_blank" rel="noopener">Quero este livro</a></div>'+
+          '</div>'+
+        '</article>'
+      );
+    }
+    function render(list){ grid.innerHTML = list.map(cardTpl).join(''); empty.style.display = list.length ? 'none' : 'block'; }
+    function normalize(str){ return (str||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+    function applyFilters(){
+      const term = normalize(q?.value);
+      const fTema = tema?.value || '';
+      const filtered = BOOKS_DATA.filter(b=>{
+        const text = normalize((b.title||'')+' '+(b.author||'')+' '+(b.synopsis||''));
+        const byTerm = !term || text.includes(term);
+        const byTema = !fTema || b.theme===fTema;
+        return byTerm && byTema;
+      });
+      render(filtered);
+    }
+    function rebuildThemes(list){
+      const set = new Set();
+      list.forEach(b=>{ if(b.theme && b.theme.trim()) set.add(b.theme.trim()); });
+      const values = Array.from(set).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      const cur = tema.value;
+      tema.innerHTML = '<option value="">Todos os temas</option>' + values.map(v=>'<option>'+v+'</option>').join('');
+      if(values.includes(cur)) tema.value = cur;
+    }
+
+    // ===== CSV =====
+    function parseCSV(str){
+      const rows=[]; let i=0,s=str,cur='',row=[],inQ=false;
+      while(i<s.length){
+        const c=s[i];
+        if(inQ){
+          if(c=='"' && s[i+1]=='"'){ cur+='"'; i++; }
+          else if(c=='"'){ inQ=false; }
+          else { cur+=c; }
+        }else{
+          if(c=='"'){ inQ=true; }
+          else if(c==','){ row.push(cur); cur=''; }
+          else if(c=='\n'){ row.push(cur); rows.push(row); row=[]; cur=''; }
+          else if(c=='\r'){ /* ignore */ }
+          else { cur+=c; }
+        }
+        i++;
+      }
+      if(cur.length||row.length){ row.push(cur); rows.push(row); }
+      return rows;
+    }
+    async function fetchCsvWithFallback(url){
+      try{
+        const r = await fetch(url, {cache:'no-store', mode:'cors'});
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        const t = await r.text(); if(!t.trim()) throw new Error('CSV vazio'); return t;
+      }catch(e){
+        const prox = 'https://r.jina.ai/http://' + url.replace(/^https?:\/\//,'');
+        const r2 = await fetch(prox, {cache:'no-store'}); if(!r2.ok) throw new Error('HTTP (proxy) '+r2.status);
+        const t2 = await r2.text(); if(!t2.trim()) throw new Error('CSV vazio (proxy)'); return t2;
+      }
+    }
+    async function loadFromSheet(csvUrl){
+      try{
+        const text = await fetchCsvWithFallback(csvUrl);
+        const rows = parseCSV(text).filter(r=>r.length && r.some(x=>x&&x.trim()!==''));
+        if(rows.length<=1) throw new Error('CSV sem linhas');
+        const headers = rows[0].map(h=>(h||'').toLowerCase().trim());
+        const idx = name => headers.indexOf(name);
+        const out=[];
+        for(let r=1;r<rows.length;r++){
+          const c = rows[r];
+          const publish = (c[idx('publish')]||'').toString().trim();
+          if(publish && publish!=='0' && publish.toLowerCase()!=='false'){
+            out.push({
+              id:(c[idx('id')]||c[idx('title')]||('book-'+r)).trim(),
+              title:(c[idx('title')]||'').trim(),
+              author:(c[idx('author')]||'').trim(),
+              theme:(c[idx('theme')]||'').trim(),
+              synopsis:(c[idx('synopsis')]||'').trim(),
+              cover:(c[idx('cover')]||'').trim(),
+              affiliate:(c[idx('affiliate')]||'#').trim(),
+            });
+          }
+        }
+        if(!out.length) throw new Error('Sem publish=1');
+        BOOKS_DATA = out;
+        rebuildThemes(BOOKS_DATA);
+        applyFilters();
+      }catch(err){
+        console.warn('Erro ao carregar planilha:', err);
+        BOOKS_DATA = [...BOOKS_FALLBACK];
+        rebuildThemes(BOOKS_DATA);
+        applyFilters();
+        alert('Não foi possível carregar a planilha. Mantendo a lista padrão.');
+      }
+    }
+
+    // ===== ADMIN =====
+    function adminVisible(){ const p = new URLSearchParams(location.search); return p.get('admin')==='1' || location.hash==='#admin'; }
+    function mountAdmin(){
+      const btn = document.getElementById('adminBtn');
+      const panel = document.getElementById('adminPanel');
+      if(!adminVisible()){ btn.style.display='none'; panel.style.display='none'; return; }
+      btn.style.display='inline-block'; panel.style.display='block';
+      const input = document.getElementById('sheetUrl');
+      const auto = document.getElementById('autoStart');
+      const save = document.getElementById('saveLoad');
+      const clear = document.getElementById('clearSheet');
+      const stored = localStorage.getItem(STORAGE_KEY);
+      input.value = stored || DEFAULT_SHEET_URL || '';
+      auto.checked = localStorage.getItem('clube_livro_sheet_auto')==='1';
+      btn.addEventListener('click', ()=>{ panel.style.display = panel.style.display==='none' ? 'block' : 'none'; });
+      save.addEventListener('click', ()=>{ const url=input.value.trim(); if(!url){ alert('Cole o link CSV publicado.'); return; } localStorage.setItem(STORAGE_KEY,url); loadFromSheet(url); });
+      clear.addEventListener('click', ()=>{ localStorage.removeItem(STORAGE_KEY); BOOKS_DATA=[...BOOKS_FALLBACK]; rebuildThemes(BOOKS_DATA); applyFilters(); alert('Planilha desconectada.'); });
+      auto.addEventListener('change', (e)=>{ localStorage.setItem('clube_livro_sheet_auto', e.target.checked ? '1' : '0'); });
+    }
+
+    // ===== BOOT =====
+    let BOOKS_DATA = [...BOOKS_FALLBACK];
+    (function init(){
+      year.textContent = new Date().getFullYear();
+      mountAdmin();
+      const params = new URLSearchParams(location.search);
+      const fromParam = params.get('sheet');
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if(fromParam){ const url = decodeURIComponent(fromParam); localStorage.setItem(STORAGE_KEY,url); loadFromSheet(url); }
+      else if(stored){ loadFromSheet(stored); }
+      else if(DEFAULT_SHEET_URL){ loadFromSheet(DEFAULT_SHEET_URL); }
+      else { rebuildThemes(BOOKS_DATA); render(BOOKS_DATA); }
+      q?.addEventListener('input', applyFilters);
+      tema?.addEventListener('change', applyFilters);
+      limpar?.addEventListener('click', ()=>{ if(q) q.value=''; if(tema) tema.value=''; applyFilters(); });
+    })();
+  </script>
+</body>
+</html>
